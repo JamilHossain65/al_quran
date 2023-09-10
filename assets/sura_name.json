@@ -1,0 +1,572 @@
+{
+  "1":{
+    "arabic":"الفاتحة",
+    "bangla":"আল ফাতিহা",
+    "english":"1 Al-Fatiha"
+  },
+  "2":{
+    "arabic":"\tالبقرة",
+    "bangla":"আল বাকারা",
+    "english":"2 Al-Fatiha"
+  },
+  "3":{
+    "arabic":"\tآل عمران",
+    "bangla":"আল ইমরান",
+    "english":"3 Al-Fatiha"
+  },
+  "4":{
+    "arabic":"\tالنّساء",
+    "bangla":"আন নিসা",
+    "english":"4 Al-Fatiha"
+  },
+  "5":{
+    "arabic":"\tالمآئدة",
+    "bangla":"আল মায়িদাহ",
+    "english":"5 Al-Fatiha"
+  },
+  "6":{
+    "arabic":"\tالانعام",
+    "bangla":"আল আনআম",
+    "english":"6 Al-Fatiha"
+  },
+  "7":{
+    "arabic":"\tالأعراف",
+    "bangla":"আল আরাফ",
+    "english":"7 Al-Fatiha"
+  },
+  "8":{
+    "arabic":"\tالأنفال",
+    "bangla":"আল আনফাল",
+    "english":"8 Al-Fatiha"
+  },
+  "9":{
+    "arabic":"التوبة",
+    "bangla":"আত-তাওবাহ্",
+    "english":"9 Al-Fatiha"
+  },
+  "10":{
+    "arabic":"يونس",
+    "bangla":"ইউনুস",
+    "english":"10 Al-Fatiha"
+  },
+  "11":{
+    "arabic":"হুদ\tهود",
+    "bangla":"11 bangla",
+    "english":"11 Al-Fatiha"
+  },
+  "12":{
+    "arabic":"ইউসুফ\tيوسف",
+    "bangla":"12 bangla",
+    "english":"12 Al-Fatiha"
+  },
+  "13":{
+    "arabic":"আর-রাদ\tالرّعد",
+    "bangla":"13 bangla",
+    "english":"13 Al-Fatiha"
+  },
+  "14":{
+    "arabic":"ইব্রাহীম\tإبراهيم",
+    "bangla":"14 bangla",
+    "english":"14 Al-Fatiha"
+  },
+  "15":{
+    "arabic":"সূরা আল হিজর\tالحجر",
+    "bangla":"15 bangla",
+    "english":"15 Al-Fatiha"
+  },
+  "16":{
+    "arabic":"আন নাহল\tالنّحل",
+    "bangla":"16 bangla",
+    "english":"16 Al-Fatiha"
+  },
+  "17":{
+    "arabic":"বনী-ইসরাঈল\tالإسرا",
+    "bangla":"17 bangla",
+    "english":"17 Al-Fatiha"
+  },
+  "18":{
+    "arabic":"আল কাহফ\tالكهف",
+    "bangla":"18 bangla",
+    "english":"18 Al-Fatiha"
+  },
+  "19":{
+    "arabic":"মারইয়াম\tمريم",
+    "bangla":"19 bangla",
+    "english":"19 Al-Fatiha"
+  },
+  "20":{
+    "arabic":"ত্বোয়া-হা\tطه",
+    "bangla":"20 bangla",
+    "english":"20 Al-Fatiha"
+  },
+  "21":{
+    "arabic":"আল আম্বিয়া\tالأنبياء",
+    "bangla":"21 bangla",
+    "english":"21 Al-Fatiha"
+  },
+  "22":{
+    "arabic":"আল হাজ্জ্ব\tالحجّ",
+    "bangla":"22 bangla",
+    "english":"22 Al-Fatiha"
+  },
+  "23":{
+    "arabic":"আল মু'মিনূন\tالمؤمنون",
+    "bangla":"23 bangla",
+    "english":"23 Al-Fatiha"
+  },
+  "24":{
+    "arabic":"আন নূর\tالنّور",
+    "bangla":"24 bangla",
+    "english":"24 Al-Fatiha"
+  },
+  "25":{
+    "arabic":"আল ফুরকান\tالفرقان",
+    "bangla":"25 bangla",
+    "english":"25 Al-Fatiha"
+  },
+  "26":{
+    "arabic":"আশ শুআরা\tالشّعراء",
+    "bangla":"26 bangla",
+    "english":"26 Al-Fatiha"
+  },
+  "27":{
+    "arabic":"আন নম্\u200Cল\tالنّمل",
+    "bangla":"27 bangla",
+    "english":"27 Al-Fatiha"
+  },
+  "28":{
+    "arabic":"আল কাসাস\tالقصص",
+    "bangla":"28 bangla",
+    "english":"28 Al-Fatiha"
+  },
+  "29":{
+    "arabic":"আল আনকাবূত\tالعنكبوت",
+    "bangla":"29 bangla",
+    "english":"29 Al-Fatiha"
+  },
+  "30":{
+    "arabic":"আর রুম\tالرّوم",
+    "bangla":"30 bangla",
+    "english":"30 Al-Fatiha"
+  },
+  "31":{
+    "arabic":"লোক্\u200Cমান\tلقمان",
+    "bangla":"31 bangla",
+    "english":"31 Al-Fatiha"
+  },
+  "32":{
+    "arabic":"আস সেজদাহ্\tالسّجدة",
+    "bangla":"32 bangla",
+    "english":"32 Al-Fatiha"
+  },
+  "33":{
+    "arabic":"আল আহ্\u200Cযাব\tالْأحزاب",
+    "bangla":"33 bangla",
+    "english":"33 Al-Fatiha"
+  },
+  "34":{
+    "arabic":"সাবা\tسبا",
+    "bangla":"34 bangla",
+    "english":"34 Al-Fatiha"
+  },
+  "35":{
+    "arabic":"ফাতির\tفاطر",
+    "bangla":"35 bangla",
+    "english":"35 Al-Fatiha"
+  },
+  "36":{
+    "arabic":"ইয়াসীন\tيس",
+    "bangla":"36 bangla",
+    "english":"36 Al-Fatiha"
+  },
+  "37":{
+    "arabic":"আস ছাফ্\u200Cফাত\tالصّافات",
+    "bangla":"37 bangla",
+    "english":"37 Al-Fatiha"
+  },
+  "38":{
+    "arabic":"ছোয়াদ\tص",
+    "bangla":"38 bangla",
+    "english":"38 Al-Fatiha"
+  },
+  "39":{
+    "arabic":"আয্\u200C-যুমার\tالزّمر",
+    "bangla":"39 bangla",
+    "english":"39 Al-Fatiha"
+  },
+  "40":{
+    "arabic":"আল মু'মিন\tغافر",
+    "bangla":"40 bangla",
+    "english":"40 Al-Fatiha"
+  },
+  "41":{
+    "arabic":"হা-মীম সেজদাহ্\u200C\tفصّلت",
+    "bangla":"41 bangla",
+    "english":"41 Al-Fatiha"
+  },
+  "42":{
+    "arabic":"আশ্\u200C-শূরা\tالشّورى",
+    "bangla":"42 bangla",
+    "english":"42 Al-Fatiha"
+  },
+  "43":{
+    "arabic":"আয্\u200C-যুখরুফ\tالزّخرف",
+    "bangla":"43 bangla",
+    "english":"43 Al-Fatiha"
+  },
+  "44":{
+    "arabic":"আদ-দোখান\tالدّخان",
+    "bangla":"44 bangla",
+    "english":"44 Al-Fatiha"
+  },
+  "45":{
+    "arabic":"আল জাসিয়াহ\tالجاثية",
+    "bangla":"45 bangla",
+    "english":"45 Al-Fatiha"
+  },
+  "46":{
+    "arabic":"আল আহ্\u200Cক্বাফ\tالأحقاف",
+    "bangla":"46 bangla",
+    "english":"46 Al-Fatiha"
+  },
+  "47":{
+    "arabic":"মুহাম্মদ\tمحمّد",
+    "bangla":"47 bangla",
+    "english":"47 Al-Fatiha"
+  },
+  "48":{
+    "arabic":"আল ফাত্\u200Cহ\tالفتح",
+    "bangla":"48 bangla",
+    "english":"48 Al-Fatiha"
+  },
+  "49":{
+    "arabic":"আল হুজুরাত\tالحجرات",
+    "bangla":"49 bangla",
+    "english":"49 Al-Fatiha"
+  },
+  "50":{
+    "arabic":"ক্বাফ\tق",
+    "bangla":"50 bangla",
+    "english":"50 Al-Fatiha"
+  },
+  "51":{
+    "arabic":"আয-যারিয়াত\tالذّاريات",
+    "bangla":"51 bangla",
+    "english":"51 Al-Fatiha"
+  },
+  "52":{
+    "arabic":"আত্ব তূর\tالطّور",
+    "bangla":"52 bangla",
+    "english":"52 Al-Fatiha"
+  },
+  "53":{
+    "arabic":"আন-নাজম\tالنّجْم",
+    "bangla":"53 bangla",
+    "english":"53 Al-Fatiha"
+  },
+  "54":{
+    "arabic":"আল ক্বামার\tالقمر",
+    "bangla":"54 bangla",
+    "english":"54 Al-Fatiha"
+  },
+  "55":{
+    "arabic":"আর রাহমান\tالرّحْمن",
+    "bangla":"55 bangla",
+    "english":"55 Al-Fatiha"
+  },
+  "56":{
+    "arabic":"আল-ওয়াকিয়াহ\tالواقعة",
+    "bangla":"56 bangla",
+    "english":"56 Al-Fatiha"
+  },
+  "57":{
+    "arabic":"আল-হাদীদ\tالحديد",
+    "bangla":"57 bangla",
+    "english":"57 Al-Fatiha"
+  },
+  "58":{
+    "arabic":"আল-মুজাদালাহ\tالمجادلة",
+    "bangla":"58 bangla",
+    "english":"58 Al-Fatiha"
+  },
+  "59":{
+    "arabic":"আল-হাশর\tالحشْر",
+    "bangla":"59 bangla",
+    "english":"59 Al-Fatiha"
+  },
+  "60":{
+    "arabic":"আল-মুমতাহিনাহ\tالممتحنة",
+    "bangla":"60 bangla",
+    "english":"60 Al-Fatiha"
+  },
+  "61":{
+    "arabic":"আস-সাফ\tالصّفّ",
+    "bangla":"61 bangla",
+    "english":"61 Al-Fatiha"
+  },
+  "62":{
+    "arabic":"আল-জুমুআ\tالجمعة",
+    "bangla":"62 bangla",
+    "english":"62 Al-Fatiha"
+  },
+  "63":{
+    "arabic":"আল-মুনাফিকুন\tالمنافقون",
+    "bangla":"63 bangla",
+    "english":"63 Al-Fatiha"
+  },
+  "64":{
+    "arabic":"আত-তাগাবুন\tالتّغابن",
+    "bangla":"64 bangla",
+    "english":"64 Al-Fatiha"
+  },
+  "65":{
+    "arabic":"আত-তালাক\tالطّلاق",
+    "bangla":"65 bangla",
+    "english":"65 Al-Fatiha"
+  },
+  "66":{
+    "arabic":"আত-তাহরীম\tالتّحريم",
+    "bangla":"66 bangla",
+    "english":"66 Al-Fatiha"
+  },
+  "67":{
+    "arabic":"আল-মুলক\tالملك",
+    "bangla":"67 bangla",
+    "english":"67 Al-Fatiha"
+  },
+  "68":{
+    "arabic":"আল-কলম\tالقلم",
+    "bangla":"68 bangla",
+    "english":"68 Al-Fatiha"
+  },
+  "69":{
+    "arabic":"আল-হাক্কাহ\tالحآقّة",
+    "bangla":"69 bangla",
+    "english":"69 Al-Fatiha"
+  },
+  "70":{
+    "arabic":"المعارج",
+    "bangla":"আল-মাআরিজ",
+    "english":"70 Al-Fatiha"
+  },
+  "71":{
+    "arabic":"نوح",
+    "bangla":"নূহ",
+    "english":"71 Al-Fatiha"
+  },
+  "72":{
+    "arabic":"الجنّ",
+    "bangla":"আল জ্বিন",
+    "english":"72 Al-Fatiha"
+  },
+  "73":{
+    "arabic":"المزّمّل",
+    "bangla":"আল মুজাম্মিল",
+    "english":"73 Al-Fatiha"
+  },
+  "74":{
+    "arabic":"المدّشّر",
+    "bangla":"আল মুদ্দাস্সির",
+    "english":"74 Al-Fatiha"
+  },
+  "75":{
+    "arabic":"القيامة",
+    "bangla":"আল-ক্বিয়ামাহ",
+    "english":"75 Al-Fatiha"
+  },
+  "76":{
+    "arabic":"الدَّهْرِ",
+    "bangla":"আদ-দাহর",
+    "english":"76 Al-Fatiha"
+  },
+  "77":{
+    "arabic":"المرسلت",
+    "bangla":"আল-মুরসালাত",
+    "english":"77 Al-Fatiha"
+  },
+  "78":{
+    "arabic":"النّبا",
+    "bangla":"আন নাবা",
+    "english":"78 Al-Fatiha"
+  },
+  "79":{
+    "arabic":"النّزعت",
+    "bangla":"আন নাযিয়াত",
+    "english":"78 Al-Fatiha"
+  },
+  "80":{
+    "arabic":"عبس",
+    "bangla":"আবাসা",
+    "english":"80 Al-Fatiha"
+  },
+  "81":{
+    "arabic":"التّكوير",
+    "bangla":"আত-তাকভীর",
+    "english":"81 Al-Fatiha"
+  },
+  "82":{
+    "arabic":"الانفطار",
+    "bangla":"আল-ইনফিতার",
+    "english":"82 Al-Fatiha"
+  },
+  "83":{
+    "arabic":"المطفّفين",
+    "bangla":"আত মুত্বাফ্\u200Cফিফীন",
+    "english":"83 Al-Fatiha"
+  },
+  "84":{
+    "arabic":"الانشقاق",
+    "bangla":"আল ইন\u200Cশিকাক",
+    "english":"84 Al-Fatiha"
+  },
+  "85":{
+    "arabic":"البروج",
+    "bangla":"আল-বুরুজ",
+    "english":"85 Al-Fatiha"
+  },
+  "86":{
+    "arabic":"الطّارق",
+    "bangla":"আত-তারিক্ব",
+    "english":"86 Al-Fatiha"
+  },
+  "87":{
+    "arabic":"الأعلى",
+    "bangla":"আল আ'লা",
+    "english":"87 Al-Fatiha"
+  },
+  "88":{
+    "arabic":"الغاشية",
+    "bangla":"আল গাশিয়াহ্",
+    "english":"88 Al-Fatiha"
+  },
+  "89":{
+    "arabic":"الفجر",
+    "bangla":"আল ফাজ্\u200Cর",
+    "english":"89 Al-Fatiha"
+  },
+  "90":{
+    "arabic":"البلد",
+    "bangla":"আল বালাদ",
+    "english":"90 Al-Fatiha"
+  },
+  "91":{
+    "arabic":"الشّمس",
+    "bangla":"আশ-শাম্\u200Cস",
+    "english":"91 Al-Fatiha"
+  },
+  "92":{
+    "arabic":"الليل",
+    "bangla":"আল লাইল",
+    "english":"92 Al-Fatiha"
+  },
+  "93":{
+    "arabic":"الضحى",
+    "bangla":"আদ-দুহা",
+    "english":"93 Al-Fatiha"
+  },
+  "94":{
+    "arabic":"الشرح",
+    "bangla":"আল ইনশিরাহ",
+    "english":"94 Al-Fatiha"
+  },
+  "95":{
+    "arabic":"التين",
+    "bangla":"ত্বীন",
+    "english":"95 Al-Fatiha"
+  },
+  "96":{
+    "arabic":"العلق",
+    "bangla":"আলাক্ব",
+    "english":"96 Al-Fatiha"
+  },
+  "97":{
+    "arabic":"القدر",
+    "bangla":"ক্বদর",
+    "english":"97 Al-Fatiha"
+  },
+  "98":{
+    "arabic":"البينة",
+    "bangla":"বাইয়্যিনাহ",
+    "english":"98 Al-Fatiha"
+  },
+  "99":{
+    "arabic":"الزلزلة",
+    "bangla":"যিলযাল",
+    "english":"99 Al-Fatiha"
+  },
+  "100":{
+    "arabic":"العاديات",
+    "bangla":"আল-আদিয়াত",
+    "english":"100 Al-Fatiha"
+  },
+  "101":{
+    "arabic":"القارعة",
+    "bangla":"ক্বারিয়াহ",
+    "english":"101 Al-Fatiha"
+  },
+  "102":{
+    "arabic":"التكاثر",
+    "bangla":"তাকাসুর",
+    "english":"102 Al-Fatiha"
+  },
+  "103":{
+    "arabic":"العصر",
+    "bangla":"আছর",
+    "english":"103 Al-Fatiha"
+  },
+  "104":{
+    "arabic":"الهمزة",
+    "bangla":"হুমাযাহ",
+    "english":"104 Al-Fatiha"
+  },
+  "105":{
+    "arabic":"الفيل",
+    "bangla":"ফীল",
+    "english":"105 Al-Fatiha"
+  },
+  "106":{
+    "arabic":"قريش",
+    "bangla":"কুরাইশ",
+    "english":"106 Al-Fatiha"
+  },
+  "107":{
+    "arabic":"الماعون",
+    "bangla":"মাউন",
+    "english":"107 Al-Fatiha"
+  },
+  "108":{
+    "arabic":"الكوثر",
+    "bangla":"কাওসার",
+    "english":"108 Al-Fatiha"
+  },
+  "109":{
+    "arabic":"الكافرون",
+    "bangla":"কাফিরুন",
+    "english":"109 Al-Fatiha"
+  },
+  "110":{
+    "arabic":"النصر",
+    "bangla":"নাসর",
+    "english":"110 Al-Fatiha"
+  },
+  "111":{
+    "arabic":"المسد",
+    "bangla":"লাহাব",
+    "english":"111 Al-Fatiha"
+  },
+  "112":{
+    "arabic":"الإخلاص",
+    "bangla":"আল-ইখলাস",
+    "english":"112 Al-Fatiha"
+  },
+  "113":{
+    "arabic":"الفلق",
+    "bangla":"আল-ফালাক",
+    "english":"113 Al-Fatiha"
+  },
+  "114":{
+    "arabic":"الناس",
+    "bangla":"আন-নাস",
+    "english":"114 Al-Fatiha"
+  }
+}
