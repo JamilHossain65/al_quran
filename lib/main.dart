@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
+import 'model/sura_name.dart';
+import 'model/bangla_sura.dart';
+import 'sura_detail.dart';
 
 // Flutter DB Doc
 // https://docs.flutter.dev/cookbook/persistence/sqlite
@@ -152,80 +155,5 @@ class _AlQuranState extends State<AlQuran> {
   void _navigateToNextScreen(BuildContext context,BanglaSura banglaSura) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuraDetailScreen(banglaSura)));
   }
-}
-
-class SuraDetailScreen extends StatelessWidget {
-  final BanglaSura banglaSura;
-  SuraDetailScreen(this.banglaSura);
-
-  @override
-  Widget build(BuildContext context) {
-
-    int index = 0;
-    print('bangla sura:${banglaSura.ayatList}');
-
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-          title: Text(banglaSura.suraName.bangla)
-      ),
-      body: ListView.builder(
-          padding: const EdgeInsets.all(8),
-          itemCount: banglaSura.ayatList.length,
-          itemBuilder: (context,index){
-            final banglaAyat= banglaSura.ayatList[index];
-            return ListTile(title: Text(banglaAyat),
-                onTap: (){
-                  //print('did tap taped = ${banglaAyat}');
-                }
-            );
-          }
-      ),
-    );
-  }
-}
-
-class BanglaSura {
-  late final String suraId;
-  late final List<String> ayatList;
-  late final String tafsir;
-  late SuraName suraName;
-
-  //String imageUrl;
-  int totalAyat = 0;
-
-  BanglaSura(
-      this.suraId,
-      this.suraName,
-      this.ayatList,
-      this.tafsir);
-}
-
-class SuraName {
-   late String serial;
-   late String bangla;
-   late String english;
-   late String arabic;
-
-  SuraName(
-      this.serial ,
-      this.bangla,
-      this.english,
-      this.arabic
-      );
-
-  // factory SuraName.fromJson(Map<String, dynamic> json) => SuraName(
-  //   serial : json["serial"]  == null ? null : json["serial"],
-  //   bangla : json["bangla"]  == null ? null : json["bangla"],
-  //   english: json["english"] == null ? null : json["english"],
-  //   arabic : json["arabic"]  == null ? null : json["arabic"],
-  // );
-
-  Map<String, dynamic> toJson() => {
-    "serial" : serial  == null ? null : serial,
-    "bangla" : bangla  == null ? null : bangla,
-    "english": english == null ? null : english,
-    "arabic" : arabic  == null ? null : arabic,
-  };
 }
 
