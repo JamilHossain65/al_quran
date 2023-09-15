@@ -1,24 +1,20 @@
-import 'package:al_quran/admob.dart';
-import 'package:al_quran/interstitial_admob.dart';
-import 'package:flutter/material.dart';
-import 'model/sura_name.dart';
-import 'model/bangla_sura.dart';
-
 import 'dart:async';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class SuraDetailScreen extends StatefulWidget {
-  final BanglaSura banglaSura;
-  SuraDetailScreen(this.banglaSura);
+
+/// loads an interstitial ad.
+class InterstitialAdmob extends StatefulWidget {
+  const InterstitialAdmob({super.key});
 
   @override
-  State<SuraDetailScreen> createState() => _SuraDetailScreenState();
+  InterstitialAdmobState createState() => InterstitialAdmobState();
 }
 
-class _SuraDetailScreenState extends State<SuraDetailScreen> {
+class InterstitialAdmobState extends State<InterstitialAdmob> {
 
-  //admob
   InterstitialAd? _interstitialAd;
   final _gameLength = 30;
   late var _counter = _gameLength;
@@ -27,8 +23,6 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
   final String _adUnitId = Platform.isAndroid
       ? 'ca-app-pub-3940256099942544/1033173712'
       : 'ca-app-pub-3940256099942544/4411468910';
-
-  //admob end
 
   @override
   void initState() {
@@ -44,29 +38,14 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    int index = 0;
-    print('bangla sura:${widget.banglaSura.ayatList}');
-
-    return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          title: Text(widget.banglaSura.suraName.bangla)
-      ),
-      body: ListView.builder(
-          padding: const EdgeInsets.all(8),
-          itemCount: widget.banglaSura.ayatList.length,
-          itemBuilder: (context,index){
-            final banglaAyat= widget.banglaSura.ayatList[index];
-            return ListTile(title: Text(banglaAyat),
-                onTap: (){
-                  //print('did tap taped = ${banglaAyat}');
-                }
-            );
-          }
-      ),
+    return MaterialApp(
+      title: 'Interstitial Example',
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Interstitial Example'),
+          ),
+          body: const Text('Aliyar')),
     );
-
   }
 
   /// Loads an interstitial ad.
@@ -88,6 +67,8 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
                 },
                 // Called when the ad dismissed full screen content.
                 onAdDismissedFullScreenContent: (ad) {
+                  isShowingAd = false;
+                  print('isShowingAd: $isShowingAd');
                   ad.dispose();
                 },
                 // Called when a click is recorded for an ad.
@@ -107,19 +88,25 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
   void _starTimer() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() => _counter--);
+
       if (_counter == 0) {
+        if (!isShowingAd) {
+          isShowingAd = true;
         _interstitialAd?.show();
         timer.cancel();
         _startNewGame();
+        }else{
+          print('already showing ad...');
+        }
       }
     });
   }
 
   @override
   void dispose() {
+    isShowingAd = false;
+    print('isShowingAd:$isShowingAd');
     _interstitialAd?.dispose();
     super.dispose();
   }
-
-
 }

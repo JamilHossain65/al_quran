@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'model/sura_name.dart';
 import 'model/bangla_sura.dart';
 import 'sura_detail.dart';
+import 'interstitial_admob.dart';
 
 // Flutter DB Doc
 // https://docs.flutter.dev/cookbook/persistence/sqlite
@@ -153,7 +154,18 @@ class _AlQuranState extends State<AlQuran> {
   }
 
   void _navigateToNextScreen(BuildContext context,BanglaSura banglaSura) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuraDetailScreen(banglaSura)));
+    Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (context) => SuraDetailScreen(banglaSura)
+        )
+    );
+
+    // Navigator.of(context).push(
+    //     MaterialPageRoute(
+    //         builder: (context) => InterstitialAdmob()
+    //     )
+    // );
+
   }
 }
 
