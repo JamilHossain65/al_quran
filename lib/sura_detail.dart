@@ -51,7 +51,13 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: Text(widget.banglaSura.suraName.bangla)
+          title: Text(widget.banglaSura.suraName.bangla),
+          // actions: <Widget>[
+          //   TextButton(
+          //     onPressed: () {},
+          //     child: Text('Save'),
+          //   ),
+          // ]
       ),
       body: ListView.builder(
           padding: const EdgeInsets.all(8),
