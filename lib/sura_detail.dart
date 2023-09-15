@@ -22,21 +22,23 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
   InterstitialAd? _interstitialAd;
   final _gameLength = 30;
   late var _counter = _gameLength;
-  bool isShowingAd = false;
 
   final String _adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/1033173712'
-      : 'ca-app-pub-3940256099942544/4411468910';
-
+      ? 'ca-app-pub-9133033983333483/4055714014'
+      : 'ca-app-pub-3940256099942544/1033173712';
   //admob end
+
+  bool adShownFirstAd = false;
+  bool isLoadFirstAd = false;
 
   @override
   void initState() {
     super.initState();
-    _startNewGame();
+    _startLoadNewAd();
   }
 
-  void _startNewGame() {
+  void _startLoadNewAd() {
+    sleep(const Duration(seconds: 1));
     setState(() => _counter = _gameLength);
     _loadAd();
     _starTimer();
@@ -46,8 +48,6 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
   Widget build(BuildContext context) {
 
     int index = 0;
-    print('bangla sura:${widget.banglaSura.ayatList}');
-
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -95,6 +95,11 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
 
             // Keep a reference to the ad so you can show it later.
             _interstitialAd = ad;
+            if (!adShownFirstAd){
+              adShownFirstAd = true;
+              ad.show();
+            }
+            print('load ad:$ad');
           },
           // Called when an ad request failed.
           onAdFailedToLoad: (LoadAdError error) {
@@ -105,21 +110,29 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
   }
 
   void _starTimer() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 20), (timer) {
       setState(() => _counter--);
+      if (_counter == 1){
+        _loadAd();
+      }
+
+      if (!isLoadFirstAd && _counter == _gameLength - 1){
+        _loadAd();
+        isLoadFirstAd = true;
+      }
+
+      print('_counter:$_counter adShown:[$adShownFirstAd] == _interstitialAd:$_interstitialAd');
       if (_counter == 0) {
         _interstitialAd?.show();
         timer.cancel();
-        _startNewGame();
+        _startLoadNewAd();
       }
     });
   }
 
-  @override
-  void dispose() {
-    _interstitialAd?.dispose();
-    super.dispose();
-  }
-
-
+  // @override
+  // void dispose() {
+  //   _interstitialAd?.dispose();
+  //   super.dispose();
+  // }
 }
