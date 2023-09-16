@@ -159,13 +159,6 @@ class _AlQuranState extends State<AlQuran> {
             builder: (context) => SuraDetailScreen(banglaSura)
         )
     );
-
-    // Navigator.of(context).push(
-    //     MaterialPageRoute(
-    //         builder: (context) => InterstitialAdmob()
-    //     )
-    // );
-
   }
 }
 
