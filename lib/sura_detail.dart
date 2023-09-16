@@ -6,7 +6,10 @@ import 'model/bangla_sura.dart';
 
 import 'dart:async';
 import 'dart:io';
+import 'package:intl/intl.dart';//timestamp
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SuraDetailScreen extends StatefulWidget {
   final BanglaSura banglaSura;
@@ -17,6 +20,12 @@ class SuraDetailScreen extends StatefulWidget {
 }
 
 class _SuraDetailScreenState extends State<SuraDetailScreen> {
+
+  Future<String> getFromLocalMemory(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String user = prefs.getString(key) as String;
+    return user;
+  }
 
   //admob
   InterstitialAd? _interstitialAd;
@@ -35,6 +44,36 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
   void initState() {
     super.initState();
     _startLoadNewAd();
+
+    // var userInfo;
+    // getFromLocalMemory('user').then((value) =>
+    // userInfo = value
+    // );
+    //
+    // print('userInfouserInfo::$userInfo');
+
+    // Set ad auto caching enabled or disabled
+// By default autocache is enabled for all ad types
+    Appodeal.setAutoCache(AppodealAdType.Interstitial, true); //default - true
+    //Appodeal.cache(AppodealAdType.Interstitial);
+
+// Set testing mode
+    Appodeal.setTesting(true); //default - false
+
+    Appodeal.initialize(
+        appKey: "f1b504adc7bf6653c973d87b7387d191517fccd089b79c14",
+        adTypes: [
+          AppodealAdType.Interstitial
+        ],
+        onInitializationFinished: (errors) => {
+        });
+
+    // var timestamp = DateTime.now().millisecondsSinceEpoch;
+    // final DateTime date1 = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    // //var formattedDate  = DateFormat.yMMMd().format(date1);
+    // var formattedDate1 = DateFormat.M().format(date1);
+    //
+    // print('date1date1:$formattedDate1');
   }
 
   void _startLoadNewAd() {
@@ -103,7 +142,7 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
             _interstitialAd = ad;
             if (!adShownFirstAd){
               adShownFirstAd = true;
-              ad.show();
+              //ad.show();
             }
             print('load ad:$ad');
           },
@@ -116,10 +155,20 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
   }
 
   void _starTimer() {
-    Timer.periodic(const Duration(seconds: 20), (timer) {
+    Timer.periodic(const Duration(seconds: 20), (timer) async {
       setState(() => _counter--);
       if (_counter == 1){
         _loadAd();
+
+        Appodeal.setInterstitialCallbacks(
+            onInterstitialLoaded: (isPrecache) => {
+            },
+            onInterstitialFailedToLoad: () => {},
+            onInterstitialShown: () => {},
+            onInterstitialShowFailed: () => {},
+            onInterstitialClicked: () => {},
+            onInterstitialClosed: () => {},
+            onInterstitialExpired: () => {});
       }
 
       if (!isLoadFirstAd && _counter == _gameLength - 1){
@@ -129,7 +178,15 @@ class _SuraDetailScreenState extends State<SuraDetailScreen> {
 
       print('_counter:$_counter adShown:[$adShownFirstAd] == _interstitialAd:$_interstitialAd');
       if (_counter == 0) {
-        _interstitialAd?.show();
+
+        //_interstitialAd?.show();
+        // Show interstitial
+        // Check that interstitial
+        var isCanShow = await Appodeal.canShow(AppodealAdType.Interstitial);
+        if (isCanShow) {
+          Appodeal.show(AppodealAdType.Interstitial);
+        }
+
         timer.cancel();
         _startLoadNewAd();
       }
