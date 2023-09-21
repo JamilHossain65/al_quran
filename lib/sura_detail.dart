@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';//timestamp
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'utils.dart';
 
 class SuraDetailScreen extends StatefulWidget {
   final BanglaSura banglaSura;
@@ -25,18 +26,23 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
   //admob
   InterstitialAd? _interstitialAd;
   ///var _delayMax = 30;
-  var delayMin = 12;
+  //var delayMin = 12;
   //final int _gameLength = SharedPref.getInt('K_AD_TIME_INTERVAL') ?? 30;
-  final int _delayMax = 12;
+  final int _delayMax = 3;
+  final int _delayUnit = 20;
+  late var _delayTotal = _delayMax * _delayUnit; //in sec
   late var _counter = _delayMax;
+
+  int appodealRatio = 4;
+  int admobRatio = 1;
 
   final String _adUnitId = Platform.isAndroid
       ? 'ca-app-pub-9133033983333483/4055714014'
       : 'ca-app-pub-3940256099942544/1033173712';
   //admob end
 
-  bool adShownFirstAd = false;
-  bool isLoadFirstAd = false;
+  final String kAdShownLastTime = 'K_AD_SHOWN_LAST_TIME';
+  final String kTotalAdShown = 'K_TOTAL_AD_SHOWN';
 
   @override
   void initState() {
@@ -48,22 +54,22 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
     //Appodeal.cache(AppodealAdType.Interstitial);
 
     // Set testing mode
-    Appodeal.setTesting(true); //default - false
+    Appodeal.setTesting(false); //default - false
 
     Appodeal.initialize(
         appKey: "f1b504adc7bf6653c973d87b7387d191517fccd089b79c14",
         adTypes: [
-          AppodealAdType.Interstitial
+          AppodealAdType.Interstitial,
         ],
         onInitializationFinished: (errors) => {
         });
 
-    // var timestamp = DateTime.now().millisecondsSinceEpoch;
+     //var timestamp = DateTime.now().millisecondsSinceEpoch;
     // final DateTime date1 = DateTime.fromMillisecondsSinceEpoch(timestamp);
     // //var formattedDate  = DateFormat.yMMMd().format(date1);
     // var formattedDate1 = DateFormat.M().format(date1);
     //
-    // print('date1date1:$formattedDate1');
+    // Utils.log('date1date1:$formattedDate1');
   }
 
   void _startLoadNewAd() {
@@ -74,9 +80,43 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
     _starTimer();
   }
 
+  void _saveAdShownTime() async {
+    var timestamp = DateTime.now().millisecondsSinceEpoch;
+    await SharedPref.setInt(kAdShownLastTime,timestamp);
+    var time = await SharedPref.setInt(kAdShownLastTime,timestamp);
+    increaseTotalAdShownBy(1);
+  }
+
+  void increaseTotalAdShownBy(int value) async{
+    var prevAds = await SharedPref.getInt(kTotalAdShown) ?? 0;
+    prevAds++;
+    await SharedPref.setInt(kTotalAdShown,prevAds);
+    var newAds = await SharedPref.getInt(kTotalAdShown) ?? 0;
+    Utils.log('newAds:$newAds');
+  }
+
+  Future<bool> _isTimePastToAd() async {
+    var timestamp = DateTime.now().millisecondsSinceEpoch;
+    var lastTimeShownAd = await SharedPref.getInt(kAdShownLastTime) ?? 0;
+    Utils.log('timestamp:$timestamp - lastTimeShownAd:$lastTimeShownAd');
+    if(timestamp - lastTimeShownAd >= 1000 * _delayTotal){
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> _isShowAdmobAd() async {
+    var totalAds = await SharedPref.getInt(kTotalAdShown) ?? 0;
+    Utils.log('totalAds:$totalAds');
+    var totalRatio = appodealRatio + admobRatio;
+    if (totalAds % totalRatio == 0){
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-
     int index = 0;
     return Scaffold(
       appBar: AppBar(
@@ -96,23 +136,24 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
             final banglaAyat= widget.banglaSura.ayatList[index];
             return ListTile(title: Text(banglaAyat),
                 onTap: (){
-                  //print('did tap taped = ${banglaAyat}');
+                  //Utils.log('did tap taped = ${banglaAyat}');
                 }
             );
           }
       ),
     );
-
   }
 
   /// Loads an interstitial ad.
   void _loadAd() {
+    //RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("236A58E9281628EE2DC990D4807A5A4C"))
+
     InterstitialAd.load(
         adUnitId: _adUnitId,
         request: const AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           // Called when an ad is successfully received.
-          onAdLoaded: (InterstitialAd ad) {
+          onAdLoaded: (InterstitialAd ad) async {
             ad.fullScreenContentCallback = FullScreenContentCallback(
               // Called when the ad showed the full screen content.
                 onAdShowedFullScreenContent: (ad) {},
@@ -131,54 +172,50 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
 
             // Keep a reference to the ad so you can show it later.
             _interstitialAd = ad;
-            if (!adShownFirstAd){
-              adShownFirstAd = true;
-              //ad.show();
-            }
-            print('load ad:$ad');
+            // if (await _isTimePastToAd()) {
+            //   ad.show();
+            //   _saveAdShownTime();
+            // }
+            Utils.log('load ad:$ad');
           },
           // Called when an ad request failed.
           onAdFailedToLoad: (LoadAdError error) {
             // ignore: avoid_print
-            print('InterstitialAd failed to load: $error');
+            Utils.log('InterstitialAd failed to load: $error');
           },
         ));
   }
 
   void _starTimer() {
-    Timer.periodic(const Duration(seconds: 5), (timer) async {
+    Timer.periodic(Duration(seconds: _delayUnit), (timer) async {
       setState(() => _counter--);
       //_counter-- ;
       if (_counter == 1){
-        _loadAd();
-
-        Appodeal.setInterstitialCallbacks(
-            onInterstitialLoaded: (isPrecache) => {
-            },
-            onInterstitialFailedToLoad: () => {},
-            onInterstitialShown: () => {},
-            onInterstitialShowFailed: () => {},
-            onInterstitialClicked: () => {},
-            onInterstitialClosed: () => {},
-            onInterstitialExpired: () => {});
+        //_loadAd();
       }
 
-      if (!isLoadFirstAd && _counter == _delayMax - 1){
-        _loadAd();
-        isLoadFirstAd = true;
-      }
-
-      print('_counter:$_counter adShown:[$adShownFirstAd] == _interstitialAd:$_interstitialAd');
-      if (_counter == 0) {
-
-        //_interstitialAd?.show();
-        // Show interstitial
-        // Check that interstitial
-        var isCanShow = await Appodeal.canShow(AppodealAdType.Interstitial);
-        if (isCanShow) {
-          saveTime();
-          Appodeal.show(AppodealAdType.Interstitial);
+      if (_counter == _delayMax - 1){
+        if (await _isShowAdmobAd()){
+          _loadAd();
         }
+      }
+
+      Utils.log('_counter:$_counter, _interstitialAd:$_interstitialAd');
+      if (_counter == 0) {
+        if (await _isShowAdmobAd()){
+          _interstitialAd?.show();
+        }else{
+          var isCanShow = await Appodeal.canShow(AppodealAdType.Interstitial);
+          Utils.log('isCanShow::$isCanShow');
+          if (isCanShow) {
+            //saveTime();
+            Appodeal.show(AppodealAdType.Interstitial);
+          }else{
+            _interstitialAd?.show();
+          }
+        }
+
+        _saveAdShownTime();
 
         timer.cancel();
         _startLoadNewAd();
@@ -186,16 +223,17 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
     });
   }
 
+  /*
   void saveTime() async {
-    print('====== save time method ======');
+    Utils.log('====== save time method ======');
 
     //Obtain shared preferences.
     final prefs = await SharedPreferences.getInstance();
     var today = prefs.getString('K_TODAY');
     var yesterday = prefs.getString('K_YESTERDAY');
 
-    print('====== K_TODAY::$today');
-    print('====== K_YESTERDAY::$yesterday');
+    Utils.log('====== K_TODAY::$today');
+    Utils.log('====== K_YESTERDAY::$yesterday');
 
     if(today == null){
       await prefs.setString('K_TODAY', DateTime.now().toString());
@@ -217,9 +255,9 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
     var yesterdayDate = DateTime.parse(yesterday!);
     var yesterdayHour = DateFormat.H().format(yesterdayDate);
 
-    print('todayHour:$todayHour');
-    print('yesterdayHour:$yesterdayHour');
-    print('nowHour:$nowHour');
+    Utils.log('todayHour:$todayHour');
+    Utils.log('yesterdayHour:$yesterdayHour');
+    Utils.log('nowHour:$nowHour');
 
     //save todays ads
     var todaysAds = prefs.getInt('K_TODAYS_ADS');
@@ -291,18 +329,18 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
       } //end interval
     }
 
-    print('today:$today');
-    print('yesterday:$yesterday');
+    Utils.log('today:$today');
+    Utils.log('yesterday:$yesterday');
 
     todaysAds = await SharedPref.getInt('K_TODAYS_ADS');
     yesterdaysAds = await SharedPref.getInt('K_YESTERDAYS_ADS');
     var adInterval = await SharedPref.getInt('K_AD_TIME_INTERVAL');
 
-    print('todaysAds:$todaysAds');
-    print('yesterdaysAds:$yesterdaysAds');
-    print('K_AD_TIME_INTERVAL:$adInterval');
+    Utils.log('todaysAds:$todaysAds');
+    Utils.log('yesterdaysAds:$yesterdaysAds');
+    Utils.log('K_AD_TIME_INTERVAL:$adInterval');
   }
-
+*/
   // @override
   // void dispose() {
   //   _interstitialAd?.dispose();

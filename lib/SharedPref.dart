@@ -12,6 +12,17 @@ class SharedPref {
     return pref.getString(key);
   }
 
+  //save Bool
+  static setBool(String key, bool value) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(key, value);
+  }
+
+  static getBool(String key) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getBool(key);
+  }
+
   //save int
   static setInt(String key, int value) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
@@ -23,14 +34,14 @@ class SharedPref {
     return pref.getInt(key);
   }
 
-  //save Bool
-  static setBool(String key, bool value) async {
+  //save int
+  static setDouble(String key, double value) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool(key, value);
+    pref.setDouble(key, value);
   }
 
-  static getBool(String key) async {
+  static getDouble(String key) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getBool(key);
+    return pref.getDouble(key);
   }
 }
