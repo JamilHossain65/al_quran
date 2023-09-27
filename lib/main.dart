@@ -7,6 +7,8 @@ import 'model/sura_name.dart';
 import 'model/bangla_sura.dart';
 import 'sura_detail.dart';
 import 'interstitial_admob.dart';
+import 'utils.dart';
+import 'SharedPref.dart';
 
 // Flutter DB Doc
 // https://docs.flutter.dev/cookbook/persistence/sqlite
@@ -21,6 +23,7 @@ import 'interstitial_admob.dart';
 //https://www.youtube.com/watch?v=yzCksccyrtE
 //https://www.youtube.com/watch?v=ofmI9-F1-Zs&t=215s
 //https://docs.flutter.dev/deployment/android
+//https://pub.dev/documentation/stack_appodeal_flutter/latest/
 
 void main() {
   runApp(const AlQuran());
@@ -84,7 +87,10 @@ class _AlQuranState extends State<AlQuran> {
     for (final suraString in banglaSuraText){
       List<String> banglaAyatList = suraString.split("\n");
       String suraId = banglaAyatList.first;
-      //print('ayat [$count] = $suraString');
+      //print('suraId  = $suraId');
+      Utils.refreshData().then((value) {
+        banglaAyatList.add(value);
+      });
 
       SuraName suraName = SuraName("", "", "", "");
 
@@ -122,16 +128,6 @@ class _AlQuranState extends State<AlQuran> {
         appBar: AppBar(
           centerTitle: true,
           title: Text('আল কুরআন আমপারা'),
-          // actions: [
-          //   IconButton(
-          //     icon: const Icon(Icons.settings),
-          //     onPressed: () {
-          //       // handle the press
-          //       print('onPressed setting button');
-          //
-          //     },
-          //   ),
-          // ],
         ),
         body: ListView.builder(
             padding: const EdgeInsets.all(8),
@@ -159,13 +155,6 @@ class _AlQuranState extends State<AlQuran> {
             builder: (context) => SuraDetailScreen(banglaSura)
         )
     );
-
-    // Navigator.of(context).push(
-    //     MaterialPageRoute(
-    //         builder: (context) => InterstitialAdmob()
-    //     )
-    // );
-
   }
 }
 

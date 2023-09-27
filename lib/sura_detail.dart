@@ -28,21 +28,20 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
   ///var _delayMax = 30;
   //var delayMin = 12;
   //final int _gameLength = SharedPref.getInt('K_AD_TIME_INTERVAL') ?? 30;
-  final int _delayMax = 3;
-  final int _delayUnit = 20;
+  final int _delayMax = 3;//4;
+  final int _delayUnit =10; //20;
   late var _delayTotal = _delayMax * _delayUnit; //in sec
   late var _counter = _delayMax;
 
   int appodealRatio = 4;
   int admobRatio = 1;
 
-  final String _adUnitId = Platform.isAndroid
+  final String _adUnitId = Platform.isIOS
       ? 'ca-app-pub-9133033983333483/4055714014'
       : 'ca-app-pub-3940256099942544/1033173712';
   //admob end
 
-  final String kAdShownLastTime = 'K_AD_SHOWN_LAST_TIME';
-  final String kTotalAdShown = 'K_TOTAL_AD_SHOWN';
+  BanglaSura? _banglaSura;
 
   @override
   void initState() {
@@ -51,11 +50,10 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
 
     // By default autocache is enabled for all ad types
     Appodeal.setAutoCache(AppodealAdType.Interstitial, true); //default - true
-    //Appodeal.cache(AppodealAdType.Interstitial);
+    Appodeal.cache(AppodealAdType.Interstitial);
 
     // Set testing mode
-    Appodeal.setTesting(false); //default - false
-
+    Appodeal.setTesting(true); //default - false
     Appodeal.initialize(
         appKey: "f1b504adc7bf6653c973d87b7387d191517fccd089b79c14",
         adTypes: [
@@ -82,22 +80,30 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
 
   void _saveAdShownTime() async {
     var timestamp = DateTime.now().millisecondsSinceEpoch;
-    await SharedPref.setInt(kAdShownLastTime,timestamp);
-    var time = await SharedPref.setInt(kAdShownLastTime,timestamp);
+    await SharedPref.setInt(Utils.kAdShownLastTime,timestamp);
+    var time = await SharedPref.setInt(Utils.kAdShownLastTime,timestamp);
     increaseTotalAdShownBy(1);
   }
 
   void increaseTotalAdShownBy(int value) async{
-    var prevAds = await SharedPref.getInt(kTotalAdShown) ?? 0;
+    var prevAds = await SharedPref.getInt(Utils.kTotalAdShown) ?? 0;
     prevAds++;
-    await SharedPref.setInt(kTotalAdShown,prevAds);
-    var newAds = await SharedPref.getInt(kTotalAdShown) ?? 0;
+    await SharedPref.setInt(Utils.kTotalAdShown,prevAds);
+    var newAds = await SharedPref.getInt(Utils.kTotalAdShown) ?? 0;
     Utils.log('newAds:$newAds');
+    setState(() => {
+      Utils.refreshData().then((value) {
+        var totalAyat = (_banglaSura?.ayatList.length ?? 0) - 1;
+        if(totalAyat > 0){
+          _banglaSura?.ayatList[totalAyat] = value;
+        }
+      })
+    });
   }
 
   Future<bool> _isTimePastToAd() async {
     var timestamp = DateTime.now().millisecondsSinceEpoch;
-    var lastTimeShownAd = await SharedPref.getInt(kAdShownLastTime) ?? 0;
+    var lastTimeShownAd = await SharedPref.getInt(Utils.kAdShownLastTime) ?? 0;
     Utils.log('timestamp:$timestamp - lastTimeShownAd:$lastTimeShownAd');
     if(timestamp - lastTimeShownAd >= 1000 * _delayTotal){
       return true;
@@ -106,7 +112,7 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
   }
 
   Future<bool> _isShowAdmobAd() async {
-    var totalAds = await SharedPref.getInt(kTotalAdShown) ?? 0;
+    var totalAds = await SharedPref.getInt(Utils.kTotalAdShown) ?? 0;
     Utils.log('totalAds:$totalAds');
     var totalRatio = appodealRatio + admobRatio;
     if (totalAds % totalRatio == 0){
@@ -118,6 +124,8 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
   @override
   Widget build(BuildContext context) {
     int index = 0;
+    _banglaSura = widget.banglaSura;
+
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -133,7 +141,10 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
           padding: const EdgeInsets.all(8),
           itemCount: widget.banglaSura.ayatList.length,
           itemBuilder: (context,index){
-            final banglaAyat= widget.banglaSura.ayatList[index];
+            var banglaAyat = widget.banglaSura.ayatList[index];
+            if (widget.banglaSura.ayatList.length == index + 1) {
+              banglaAyat = _banglaSura!.ayatList[index];
+            }
             return ListTile(title: Text(banglaAyat),
                 onTap: (){
                   //Utils.log('did tap taped = ${banglaAyat}');
@@ -143,6 +154,9 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
       ),
     );
   }
+  
+  //Add footer of list view
+  //https://dev.to/hemunt_sharma/how-to-add-a-static-widget-at-the-end-of-listview-in-flutter-2p62
 
   /// Loads an interstitial ad.
   void _loadAd() {
@@ -172,10 +186,10 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
 
             // Keep a reference to the ad so you can show it later.
             _interstitialAd = ad;
-            // if (await _isTimePastToAd()) {
-            //   ad.show();
-            //   _saveAdShownTime();
-            // }
+            if (await _isTimePastToAd()) {
+              ad.show();
+              _saveAdShownTime();
+            }
             Utils.log('load ad:$ad');
           },
           // Called when an ad request failed.
@@ -189,14 +203,25 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
   void _starTimer() {
     Timer.periodic(Duration(seconds: _delayUnit), (timer) async {
       setState(() => _counter--);
-      //_counter-- ;
-      if (_counter == 1){
-        //_loadAd();
-      }
 
       if (_counter == _delayMax - 1){
         if (await _isShowAdmobAd()){
           _loadAd();
+        }
+
+        var isLoaded = await Appodeal.isLoaded(AppodealAdType.Interstitial);
+        Utils.log('isLoaded:$isLoaded');
+        if (!isLoaded){
+          Appodeal.setInterstitialCallbacks(
+              onInterstitialLoaded: (isPrecache) => {},
+              onInterstitialFailedToLoad: () => {
+
+              },
+              onInterstitialShown: () => {},
+              onInterstitialShowFailed: () => {},
+              onInterstitialClicked: () => {},
+              onInterstitialClosed: () => {},
+              onInterstitialExpired: () => {});
         }
       }
 
@@ -204,18 +229,19 @@ class _SuraDetailScreenState extends State<SuraDetailScreen>{
       if (_counter == 0) {
         if (await _isShowAdmobAd()){
           _interstitialAd?.show();
+          _saveAdShownTime();
         }else{
           var isCanShow = await Appodeal.canShow(AppodealAdType.Interstitial);
           Utils.log('isCanShow::$isCanShow');
           if (isCanShow) {
             //saveTime();
             Appodeal.show(AppodealAdType.Interstitial);
+            _saveAdShownTime();
           }else{
             _interstitialAd?.show();
+            _saveAdShownTime();
           }
         }
-
-        _saveAdShownTime();
 
         timer.cancel();
         _startLoadNewAd();
